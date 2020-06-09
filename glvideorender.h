@@ -44,6 +44,9 @@ public:
 
     bool isInitialized() const { return m_program != nullptr; }
     int initialize(int width, int height);
+    void cleanup();
+
+
     void setSize(int width, int height);
     int setStreamProperties(int zOrder, float left, float top, float right, float bottom);
     int getStreamProperties(int& zOrder, float& left, float& top, float& right, float& bottom);
@@ -55,6 +58,9 @@ public:
         m_renderMode = m;
     }
     RenderMode renderMode() const{return m_renderMode;}
+
+    void setDevicePixelRatio(qreal ratio){m_ratio = ratio;}
+    qreal devicePixelRatio(){ return m_ratio;}
 private:
     int prepare();
     int frameSizeChange(int width, int height);
@@ -67,7 +73,6 @@ private:
     int ajustVertices();
     int adjustCoordinates(int frWidth, int frHeight, int targetWidth, int targetHeight, int renderMode);
     static QOpenGLFunctions* renderer();
-    void cleanup();
 private:
     std::mutex m_mutex;
     QOpenGLShaderProgram *m_program;
@@ -88,5 +93,6 @@ private:
     bool m_resetGlVert;
     int m_rotation;
     bool m_mirrored;
+    qreal m_ratio = 1;
 };
 #endif // GLVIDEORENDER_H

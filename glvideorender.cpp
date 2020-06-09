@@ -148,8 +148,8 @@ int GlVideoRenderer::initialize(int width, int height)
 
 void GlVideoRenderer::setSize(int width, int height)
 {
-    m_targetWidth = width;
-    m_targetHeight = height;
+    m_targetWidth = width*m_ratio;
+    m_targetHeight = height*m_ratio;
 }
 
 int GlVideoRenderer::prepare()

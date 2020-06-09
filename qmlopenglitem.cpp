@@ -109,6 +109,9 @@ int QmlOpenglItem::deliverFrame(int rotation, bool mirrored, const QByteArray yu
         m_frame->stride = width;
         m_frame->data = yuv;
         //        m_frame->data.detach();
+        if(width != m_render->width() || height != m_render->height()){
+            m_render->cleanup();//大小变化之后，就需要重新初始化
+        }
     }
 
     //notify the render thread to redraw the incoming frame
